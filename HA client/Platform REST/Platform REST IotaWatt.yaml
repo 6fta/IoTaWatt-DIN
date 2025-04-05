@@ -1,0 +1,148 @@
+
+
+## Senzori
+sensor:
+
+
+  - platform: rest
+    name: "IoTaWatt Status"
+    resource: "http://192.168.0.113/status?inputs=yes&outputs=yes&stats=yes"
+    scan_interval: 10
+    value_template: "{{ value_json.stats.version }}"
+    json_attributes:
+      - stats
+      - inputs
+      - outputs
+
+  - platform: template
+    sensors:
+      iotawatt_vrms:
+        friendly_name: "Tensiune"
+        unit_of_measurement: "V"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[0]['Vrms'] }}"
+
+      iotawatt_frequency:
+        friendly_name: "Frequency"
+        unit_of_measurement: "Hz"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'stats')['frequency'] }}"
+
+##### General ############
+      iotawatt_general:
+        friendly_name: "General"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[1]['Watts'] }}"
+
+      iotawatt_general_pf: 
+        friendly_name: "Power Factor General"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[1]['Pf'] }}"
+      
+      iotawatt_current_general:
+        friendly_name: "General"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[1]['value'] }}"
+
+ #### Server 
+      iotawatt_power_server: 
+        friendly_name: "Power Server"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[2]['Watts'] }}"
+
+      iotawatt_server_pf:
+        friendly_name: "Power Factor Server"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[2]['Pf'] }}"
+
+      iotawatt_current_server:
+        friendly_name: "Server"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[7]['value'] }}"
+  
+###### Iluminat ######
+      iotawatt_power_iluminat:
+        friendly_name: "Power Iluminat"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[3]['Watts'] }}"
+
+      iotawatt_iluminat_pf:
+        friendly_name: "Power Factor Iluminat"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[3]['Pf'] }}"
+
+      iotawatt_current_iluminat:
+        friendly_name: "Iluminat"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[2]['value'] }}"
+
+###### Prize Living ######
+      iotawatt_power_prize_living:
+        friendly_name: "Power Prize Living"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[4]['Watts'] }}"
+
+      iotawatt_prize_living_pf:
+        friendly_name: "Power Factor Prize Living"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[4]['Pf'] }}"
+
+      iotawatt_current_prize_living:
+        friendly_name: "Prize Living"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[6]['value'] }}"
+
+##### Prize Dormitor ######
+      iotawatt_power_prize_dormitor:
+        friendly_name: "Power Prize Dormitor"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[5]['Watts'] }}"
+
+      iotawatt_prize_dormitor_pf:
+        friendly_name: "Power Factor Prize Dormitor"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[5]['Pf'] }}"
+
+      iotawatt_current_prize_dormitor:
+        friendly_name: "Prize Dormitor"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[5]['value'] }}"
+
+#### Climatizae ######
+      iotawatt_power_climatizare:
+        friendly_name: "Power Climatizare"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[6]['Watts'] }}"  
+
+      iotawatt_climatizare_pf:
+        friendly_name: "Power Factor Climatizare"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[6]['Pf'] }}"
+
+      iotawatt_current_climatizare:
+        friendly_name: "Climatizare"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[0]['value'] }}"
+      
+#### MSH ######
+      iotawatt_power_msh:
+        friendly_name: "Power MSH"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[7]['Watts'] }}"
+
+      iotawatt_msh_pf:  
+        friendly_name: "Power Factor MSH"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[7]['Pf'] }}"
+
+      iotawatt_current_msh:
+        friendly_name: "MSH"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[3]['value'] }}"
+
+#### Plita & Cuptor ######
+      iotawatt_power_plita_cuptor:
+        friendly_name: "Power Plită & Cuptor"
+        unit_of_measurement: "W"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[8]['Watts'] }}"
+
+      iotawatt_plita_cuptor_pf:
+        friendly_name: "Power Factor Plită & Cuptor"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'inputs')[8]['Pf'] }}"
+
+      iotawatt_current_plita_cuptor:
+        friendly_name: "Plită & Cuptor"
+        unit_of_measurement: "A"
+        value_template: "{{ state_attr('sensor.iotawatt_status', 'outputs')[4]['value'] }}" 
+
